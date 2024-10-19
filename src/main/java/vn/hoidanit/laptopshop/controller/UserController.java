@@ -1,11 +1,13 @@
 package vn.hoidanit.laptopshop.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -33,9 +35,14 @@ public class UserController {
 
     @RequestMapping("/admin/user")
     public String getUserPage(Model model) {
-        List<User> arrUsers = this.userService.getAllUsers();
-        model.addAttribute("Users", arrUsers);
+        List<User> users = this.userService.getAllUsers();
+        model.addAttribute("Users", users);
         return "admin/user/table-user";
+    }
+
+    @RequestMapping("/admin/user/{id}")
+    public String getUserDetailPage(Model model, @PathVariable long id) {
+        return "admin/user/show";
     }
 
     @RequestMapping("/admin/user/create")
@@ -47,8 +54,9 @@ public class UserController {
     @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
     public String createUserPage(Model model, @ModelAttribute("newUser") User newUser) {
         this.userService.handleSaveUser(newUser);
-        return "admin/user/create";
+        return "redirect:/admin/user";
     }
+
 }
 
 // @RestController
