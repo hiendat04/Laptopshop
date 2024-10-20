@@ -1,11 +1,9 @@
 package vn.hoidanit.laptopshop.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.repository.UserRepository;
 import vn.hoidanit.laptopshop.service.UserService;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class UserController {
@@ -42,6 +43,8 @@ public class UserController {
 
     @RequestMapping("/admin/user/{id}")
     public String getUserDetailPage(Model model, @PathVariable long id) {
+        User user = this.userService.getUserById(id);
+        model.addAttribute("user", user);
         return "admin/user/show";
     }
 
@@ -57,20 +60,38 @@ public class UserController {
         return "redirect:/admin/user";
     }
 
+    @RequestMapping("/admin/user/update/{id}")
+    public String getUpdateUserPage(Model model, @PathVariable long id) {
+        User currentUser = this.userService.getUserById(id);
+        model.addAttribute("updatedUser", currentUser);
+        return "admin/user/update";
+    }
+
+    @PostMapping("/admin/user/update")
+    public String postUpdateUser(Model model, @ModelAttribute("updatedUser") User user) {
+        User currentUser = this.userService.getUserById(user.getId());
+        if (currentUser != null) {
+            currentUser.setPhone(user.getPhone());
+            currentUser.setFullName(user.getFullName());
+            currentUser.setAddress(user.getAddress());
+
+            this.userService.handleSaveUser(currentUser);
+        }
+        return "redirect:/admin/user";
+    }
+
+    @GetMapping("/admin/user/delete/{id}")
+    public String getDeleteUserPage(Model model, @ModelAttribute("currentUser") User currentUser,
+            @PathVariable long id) {
+        model.addAttribute("id", id);
+        return "/admin/user/delete";
+    }
+
+    @PostMapping("/admin/user/delete")
+    public String postDeleteUser(@ModelAttribute("currentUser") User currentUser) {
+        this.userService.deleteUserById(currentUser.getId());
+        return "redirect:/admin/user";
+
+    }
+
 }
-
-// @RestController
-// public class UserController {
-
-// //DI: Dependency Injection
-// private UserService userService;
-
-// public UserController(UserService userService) {
-// this.userService = userService;
-// }
-
-// @GetMapping("")
-// public String getHomePage() {
-// return this.userService.handleHello();
-// }
-// }
