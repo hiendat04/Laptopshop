@@ -58,7 +58,7 @@ public class UserController {
 
     @PostMapping(value = "/admin/user/create")
     public String createUserPage(Model model,@ModelAttribute("newUser") User newUser, @RequestParam("uploadedFile") MultipartFile file) {
-        this.userService.handleSaveUser(newUser);
+        // this.userService.handleSaveUser(newUser);
         return "redirect:/admin/user";
     }
 
