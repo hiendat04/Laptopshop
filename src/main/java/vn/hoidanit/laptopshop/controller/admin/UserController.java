@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.servlet.ServletContext;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.repository.UserRepository;
 import vn.hoidanit.laptopshop.service.UploadService;
@@ -94,7 +93,8 @@ public class UserController {
             currentUser.setPhone(user.getPhone());
             currentUser.setFullName(user.getFullName());
             currentUser.setAddress(user.getAddress());
-
+            currentUser.setAvatar(user.getAvatar());
+            currentUser.setRole(this.userService.getRoleByName(user.getRole().getName()));
             this.userService.handleSaveUser(currentUser);
         }
         return "redirect:/admin/user";

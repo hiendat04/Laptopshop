@@ -44,6 +44,11 @@
                                                     disabled="true" />
                                             </div>
                                             <div class="mb-3">
+                                                <label for="avatar" class="form-label">Avatar</label>
+                                                <form:input type="file" class="form-control" path="avatar"
+                                                    accept=".png, .jpg, .jpeg" />
+                                            </div>
+                                            <div class="mb-3">
                                                 <label for="phoneNumber" class="form-label">Phone Number</label>
                                                 <form:input type="text" class="form-control" path="phone" />
                                             </div>
@@ -54,6 +59,13 @@
                                             <div class="mb-3">
                                                 <label for="address" class="form-label">Address</label>
                                                 <form:input type="text" class="form-control" path="address" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="role" class="form-label">Role</label>
+                                                <form:select type="text" class="form-select" path="role.name">
+                                                    <form:option value="ADMIN">ADMIN</form:option>
+                                                    <form:option value="USER">USER</form:option>
+                                                </form:select>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Update</button>
                                         </form:form>
