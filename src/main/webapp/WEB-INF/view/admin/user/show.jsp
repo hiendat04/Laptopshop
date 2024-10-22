@@ -41,7 +41,7 @@
                                             <thead>
                                                 <tr>
                                                     <th scope="col">ID</th>
-                                                    <th scope="col">Emaik</th>
+                                                    <th scope="col">Email</th>
                                                     <th scope="col">Full Name</th>
                                                     <th scope="col">Role</th>
                                                     <th scope="col">Action</th>
@@ -69,6 +69,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </main>
                     <jsp:include page="../layout/footer.jsp" />
