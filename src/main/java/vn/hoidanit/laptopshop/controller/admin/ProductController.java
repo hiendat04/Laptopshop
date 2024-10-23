@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,6 +54,15 @@ public class ProductController {
 
         this.productService.createProduct(newProduct);
         return "redirect:/admin/product";
+    }
+
+    @GetMapping("/admin/product/{id}")
+    public String getProductDetail(
+            Model model,
+            @PathVariable long id) {
+        Product product = this.productService.getProductById(id);
+        model.addAttribute("product", product);
+        return "admin/product/detail";
     }
 
 }
