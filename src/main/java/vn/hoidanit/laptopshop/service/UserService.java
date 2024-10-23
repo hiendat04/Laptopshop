@@ -23,7 +23,6 @@ public class UserService {
 
     public User handleSaveUser(User user) {
         User newUser = this.userRepository.save(user);
-        System.out.println(newUser);
         return newUser;
     }
 

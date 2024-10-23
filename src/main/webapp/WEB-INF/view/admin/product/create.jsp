@@ -34,7 +34,7 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
-                                <h1 class="mt-4">Manage Users</h1>
+                                <h1 class="mt-4">Manage Products</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                                     <li class="breadcrumb-item active">Product</li>
@@ -47,23 +47,53 @@
                                             modelAttribute="newProduct" class="row g-3" enctype="multipart/form-data">
                                             <div class="col-12 col-md-6">
                                                 <label for="name" class="form-label">Name:</label>
-                                                <form:input type="text" class="form-control" path="name" />
+                                                <c:set var="nameError">
+                                                    <form:errors path="name" cssClass="invalid-feedback" />
+                                                </c:set>
+                                                <form:input type="text"
+                                                    class="form-control ${not empty nameError ? 'is-invalid' : ''}"
+                                                    path="name" />
+                                                ${nameError}
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <label for="price" class="form-label">Price:</label>
-                                                <form:input type="text" class="form-control" path="price" />
+                                                <c:set var="priceError">
+                                                    <form:errors path="price" cssClass="invalid-feedback" />
+                                                </c:set>
+                                                <form:input type="number"
+                                                    class="form-control ${not empty nameError ? 'is-invalid' : ''}"
+                                                    path="price" />
+                                                ${priceError}
                                             </div>
                                             <div class="col-12">
                                                 <label for="detailDesc" class="form-label">Detail Description:</label>
-                                                <form:textarea class="form-control" path="detailDesc" rows="3" />
+                                                <c:set var="detailError">
+                                                    <form:errors path="detailDesc" cssClass="invalid-feedback" />
+                                                </c:set>
+                                                <form:textarea
+                                                    class="form-control ${not empty nameError ? 'is-invalid' : ''}"
+                                                    path="detailDesc" rows="3" />
+                                                ${detailError}
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <label for="shortDesc" class="form-label">Short Description:</label>
-                                                <form:input type="shortDesc" class="form-control" path="shortDesc" />
+                                                <c:set var="shortError">
+                                                    <form:errors path="shortDesc" cssClass="invalid-feedback" />
+                                                </c:set>
+                                                <form:input type="text"
+                                                    class="form-control ${not empty nameError ? 'is-invalid' : ''}"
+                                                    path="shortDesc" />
+                                                ${shortError}
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <label for="quantity" class="form-label">Quantity:</label>
-                                                <form:input type="text" class="form-control" path="quantity" />
+                                                <c:set var="quantityError">
+                                                    <form:errors path="quantity" cssClass="invalid-feedback" />
+                                                </c:set>
+                                                <form:input type="number"
+                                                    class="form-control ${not empty quantityError ? 'is-invalid' : ''}"
+                                                    path="quantity" />
+                                                ${quantityError}
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <label class="form-label">Factory:</label>
@@ -79,8 +109,10 @@
                                                 <label class="form-label">Target:</label>
                                                 <form:select class="form-select" path="target">
                                                     <form:option value="GAMING">Gaming</form:option>
-                                                    <form:option value="SINHVIEN-VANPHONG">Sinh viên - văn phòng</form:option>
-                                                    <form:option value="THIET-KE-DO-HOA">Thiết kế đồ họa</form:option>
+                                                    <form:option value="SINHVIEN-VANPHONG">Sinh viên - văn phòng
+                                                    </form:option>
+                                                    <form:option value="THIET-KE-DO-HOA">Thiết kế đồ họa
+                                                    </form:option>
                                                     <form:option value="MONG-NHE">Mỏng nhẹ</form:option>
                                                     <form:option value="DOANH-NHAN">Doanh nhân</form:option>
                                                 </form:select>
@@ -88,7 +120,7 @@
                                             <div class="col-12 col-md-6">
                                                 <label for="productImageFile" class="form-label">Image:</label>
                                                 <input class="form-control" type="file" id="productImageFile"
-                                                    accept=".png, .jpg, .jpeg" name="uploadedFile" />
+                                                    accept=".png, .jpg, .jpeg" name="uploadFile" />
                                             </div>
                                             <div class="col-12 mb-3">
                                                 <img style="max-height: 250px; display: none;" alt="product preview"
