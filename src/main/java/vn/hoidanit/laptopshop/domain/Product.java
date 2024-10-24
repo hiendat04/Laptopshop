@@ -2,7 +2,7 @@ package vn.hoidanit.laptopshop.domain;
 
 import java.util.List;
 
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,7 +13,6 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "products")
@@ -22,6 +21,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
     @NotEmpty(message = "Tên sản phẩm không được để trống")
     private String name;
 
@@ -31,7 +31,9 @@ public class Product {
 
     private String image;
 
-    @NotEmpty(message = "Mô tả chi tiết không được để trống")
+    @NotNull
+    @NotEmpty(message = "Mô tả chi tiết không được để trống")
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String detailDesc;
 
     @NotEmpty(message = "Mô tả ngắn gọn không được để trống")

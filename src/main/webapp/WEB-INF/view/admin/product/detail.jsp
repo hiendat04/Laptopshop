@@ -42,6 +42,7 @@
                                             </div>
                                             <ul class="list-group list-group-flush">
                                                 <!-- Upload the image here -->
+                                                <img class="card-img-top" src="/images/product/${product.image}" />
                                                 <li class="list-group-item">ID: ${product.id} </li>
                                                 <li class="list-group-item">Name: ${product.name}</li>
                                                 <li class="list-group-item">Price: ${product.price}</li>
