@@ -74,7 +74,7 @@
                                                     </div>
                                                     <div class="mt-4 mb-0">
                                                         <button class="btn btn-primary btn-block">Create
-                                                            Account</button>
+                                                            a Account</button>
                                                     </div>
                                                 </form:form>
                                             </div>
