@@ -7,6 +7,7 @@ This project is an e-commerce website for selling laptop. It is built using the 
 - **Tools**: Maven for dependency management, Git for version control
 - **Others**: RESTful API development, JSP Tag Libraries
 
+*Features (so far) *
 - User registration and authentication
 - Browse and search music albums
 - Shopping cart functionality with add, update, and remove items
