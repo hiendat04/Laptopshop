@@ -1,16 +1,26 @@
-# Java Spring Starter template (update)
-Template này được sử dụng cho series Java Spring MVC (dự án laptopshop) của tác giả Hỏi Dân IT (Eric)
+# E-Commerce Website - LAPTOPSHOP
 
-## Về tác giả
-Mọi thông tin về Tác giả Hỏi Dân IT, các bạn có thể tìm kiếm tại đây:
+### 🚧 IN PROGRESS
 
-Website chính thức: https://hoidanit.vn/
+## Overview
+This project is an e-commerce website for selling laptops. It is built using the Java Spring Framework to demonstrate my understanding of building web applications with backend functionality. And this project is for educational purpose only !
 
-Youtube “Hỏi Dân IT” : https://www.youtube.com/@hoidanit
+## Tech Stack
+- **Backend**: Java Spring Framework (Spring Boot, Spring MVC, Spring Data JPA, Spring Security)
+- **Frontend**: HTML, CSS, Bootstrap for styling, JSP for rendering views
+- **Database**: MySQL with Hibernate for ORM
+- **Tools**: Maven for dependency management, Git for version control
+- **Others**: RESTful API development, JSP Tag Libraries
 
-Tiktok “Hỏi Dân IT” :  https://www.tiktok.com/@hoidanit
+## Features
+- User registration and authentication
+- Browse and search laptops
+- Shopping cart functionality with add, update, and remove items
+- Order management for customers
+- Admin panel for managing products
 
-Fanpage “Hỏi Dân IT” : https://www.facebook.com/askITwithERIC/
+## Status
+**Note**: This project is currently in development, and additional features like payment integration and order tracking will be added in the future.
 
-Udemy Hỏi Dân IT: https://www.udemy.com/user/eric-7039/
-
+## Contact
+Feel free to reach out for any suggestions or collaboration opportunities!
