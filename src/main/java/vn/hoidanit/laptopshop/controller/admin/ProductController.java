@@ -31,7 +31,7 @@ public class ProductController {
     public String getProductPage(Model model) {
         List<Product> products = this.productService.getAllProducts();
         model.addAttribute("products", products);
-        return "/admin/product/show";
+        return "admin/product/show";
     }
 
     @GetMapping("/admin/product/create")

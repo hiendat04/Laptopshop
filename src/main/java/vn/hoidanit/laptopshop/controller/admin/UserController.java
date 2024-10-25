@@ -58,8 +58,8 @@ public class UserController {
             BindingResult newUserBindingResult,
             @RequestParam("uploadedFile") MultipartFile file) {
 
-        if (newUserBindingResult.hasErrors()){
-            return "/admin/user/create";
+        if (newUserBindingResult.hasErrors()) {
+            return "admin/user/create";
         }
 
         String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
@@ -97,7 +97,7 @@ public class UserController {
     public String getDeleteUserPage(Model model, @ModelAttribute("currentUser") User currentUser,
             @PathVariable long id) {
         model.addAttribute("id", id);
-        return "/admin/user/delete";
+        return "admin/user/delete";
     }
 
     @PostMapping("/admin/user/delete")
