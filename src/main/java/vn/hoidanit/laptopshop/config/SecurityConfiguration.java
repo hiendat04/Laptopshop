@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import vn.hoidanit.laptopshop.service.CustomerUserDetailsService;
+import vn.hoidanit.laptopshop.service.CustomUserDetailsService;
 import vn.hoidanit.laptopshop.service.UserService;
 
 @Configuration
@@ -24,7 +24,7 @@ public class SecurityConfiguration {
 
     @Bean
     public UserDetailsService userDetailsService(UserService userService) {
-        return new CustomerUserDetailsService(userService);
+        return new CustomUserDetailsService(userService);
     }
 
     @Bean
