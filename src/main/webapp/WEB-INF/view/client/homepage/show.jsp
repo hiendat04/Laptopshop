@@ -43,8 +43,6 @@
 
                 <jsp:include page="../layout/header.jsp" />
 
-
-
                 <!-- Modal Search Start -->
                 <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
