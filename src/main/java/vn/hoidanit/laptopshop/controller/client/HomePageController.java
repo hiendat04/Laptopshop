@@ -15,7 +15,8 @@ import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.dto.RegisterDTO;
 import vn.hoidanit.laptopshop.service.ProductService;
 import vn.hoidanit.laptopshop.service.UserService;
-
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,9 +38,10 @@ public class HomePageController {
     }
 
     @GetMapping("/")
-    public String getHomePage(Model model) {
+    public String getHomePage(Model model, HttpServletRequest request) {
         List<Product> products = this.productService.getAllProducts();
         model.addAttribute("products", products);
+        HttpSession session = request.getSession(false);
         return "client/homepage/show";
     }
 
@@ -54,7 +56,7 @@ public class HomePageController {
             @ModelAttribute("registerUser") @Valid RegisterDTO registerUser,
             BindingResult bindingResult) {
         User user = this.userService.registerDTOtoUser(registerUser);
-        
+
         if (bindingResult.hasErrors()) {
             return "client/auth/register";
         }
