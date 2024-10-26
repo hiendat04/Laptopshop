@@ -29,7 +29,7 @@ public class User {
     private String email;
 
     @NotNull
-    @StrongPassword(message = "Password phải có ít nhất 8 ký tự")
+    @StrongPassword(message = "Password phải có ít nhất 8 ký tự bao gồm chữ in hoa, chữ thường, số và ký tự đặc biệt")
     private String password;
 
     @NotNull

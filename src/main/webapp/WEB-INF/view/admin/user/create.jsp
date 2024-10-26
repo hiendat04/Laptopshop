@@ -75,7 +75,7 @@
                                                     <form:errors path="fullName" cssClass="invalid-feedback" />
                                                 </c:set>
                                                 <form:input type="text"
-                                                    class="form-control ${not empty errorPassword ? 'is-invalid' : ''}"
+                                                    class="form-control ${not empty errorFullName ? 'is-invalid' : ''}"
                                                     path="fullName" />
                                                 ${errorFullName}
                                             </div>
