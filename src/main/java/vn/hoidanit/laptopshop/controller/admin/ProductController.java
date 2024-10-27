@@ -60,7 +60,7 @@ public class ProductController {
     public String getProductDetail(
             Model model,
             @PathVariable long id) {
-        Product product = this.productService.getProductById(id);
+        Product product = this.productService.getProductById(id).get();
         model.addAttribute("product", product);
         return "admin/product/detail";
     }
@@ -69,7 +69,7 @@ public class ProductController {
     public String getProductUpdate(
             Model model,
             @PathVariable long id) {
-        Product product = this.productService.getProductById(id);
+        Product product = this.productService.getProductById(id).get();
         model.addAttribute("product", product);
         return "admin/product/update";
     }
@@ -84,7 +84,7 @@ public class ProductController {
             return "admin/product/update";
         }
 
-        Product currentProduct = this.productService.getProductById(id);
+        Product currentProduct = this.productService.getProductById(id).get();
         if (currentProduct != null) {
             currentProduct.setName(product.getName());
             currentProduct.setPrice(product.getPrice());
