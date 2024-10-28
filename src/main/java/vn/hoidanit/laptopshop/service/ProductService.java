@@ -80,12 +80,32 @@ public class ProductService {
                     this.cartRepository.save(cart);
                     session.setAttribute("sum", s);
                 } else {
-                    oldDetail.setQuantity(oldDetail.getQuantity() + 1); 
+                    oldDetail.setQuantity(oldDetail.getQuantity() + 1);
                     this.cartDetailRepository.save(oldDetail);
                 }
 
             }
 
         }
+    }
+
+    public Optional<CartDetail> getCartDetailById(long id) {
+        return this.cartDetailRepository.findById(null);
+    }
+
+    public Cart getCartByUser(User user) {
+        return this.cartRepository.findByUser(user);
+    }
+
+    public void deleteCartDetailById(long id) {
+        this.cartDetailRepository.deleteById(id);
+    }
+
+    public void deleteCartById(long id) {
+        this.cartRepository.deleteById(id);
+    }
+    
+    public void handleSaveCart(Cart cart) {
+        this.cartRepository.save(cart);
     }
 }
