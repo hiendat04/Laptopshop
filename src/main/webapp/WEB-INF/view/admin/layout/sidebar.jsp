@@ -12,23 +12,22 @@
 
                         <a class="nav-link" href="/admin/user">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            User
+                            Người dùng
                         </a>
 
                         <a class="nav-link" href="/admin/product">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Product
+                            Sản phẩm
                         </a>
 
                         <a class="nav-link" href="/admin/order">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Order
+                            Đơn hàng
                         </a>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Hỏi Dân IT
+                    <div class="small">Logged in as: Admin</div>
                 </div>
             </nav>
         </div>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import vn.hoidanit.laptopshop.domain.Cart;
 import vn.hoidanit.laptopshop.domain.CartDetail;
+import vn.hoidanit.laptopshop.domain.Order;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.service.ProductService;
@@ -20,8 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class ItemController {
@@ -47,7 +49,7 @@ public class ItemController {
 
         long productId = id;
         String email = (String) session.getAttribute("email");
-        this.productService.handleAddProductToCart(email, productId, session);
+        this.productService.handleAddProductToCart(email, productId, session, 1);
         return "redirect:/";
     }
 
@@ -136,9 +138,31 @@ public class ItemController {
     }
 
     @GetMapping("/thank")
-    public String getThankPage(Model model) {
-        return "client/cart/thanks";
+    public String getThankYouPage(Model model) {
+        return "client/cart/thank";
+    }
+
+    @GetMapping("/order-history")
+    public String getHisotyPage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        long id = (long) session.getAttribute("id");
+        User user = this.userService.getUserById(id);
+        List<Order> orders = user.getOrders();
+        model.addAttribute("orders", orders);
+        return "client/history/show";
+    }
+
+    @PostMapping("/update-quantity-from-detail")
+    public String postUpdateProductCartQuantity(
+        Model model,
+        @RequestParam long id, 
+        HttpServletRequest request, 
+        @RequestParam("quantity") long quantity) {
+
+        HttpSession session = request.getSession(false);
+        String email = (String) session.getAttribute("email");
+        this.productService.handleAddProductToCart(email, id, session, quantity);
+        return "client/c";
     }
     
-
 }

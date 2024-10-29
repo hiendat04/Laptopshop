@@ -59,7 +59,7 @@ public class ProductService {
         this.productRepository.deleteById(id);
     }
 
-    public void handleAddProductToCart(String email, long productId, HttpSession session) {
+    public void handleAddProductToCart(String email, long productId, HttpSession session, long quantity) {
         User user = this.userService.getUserByEmail(email);
 
         if (user != null) {
@@ -84,7 +84,7 @@ public class ProductService {
                     cartDetail.setCart(cart);
                     cartDetail.setProduct(realProduct);
                     cartDetail.setPrice(realProduct.getPrice());
-                    cartDetail.setQuantity(1);
+                    cartDetail.setQuantity(quantity);
                     this.cartDetailRepository.save(cartDetail);
 
                     // update cart sum
@@ -93,7 +93,7 @@ public class ProductService {
                     this.cartRepository.save(cart);
                     session.setAttribute("sum", s);
                 } else {
-                    oldDetail.setQuantity(oldDetail.getQuantity() + 1);
+                    oldDetail.setQuantity(oldDetail.getQuantity() + quantity);
                     this.cartDetailRepository.save(oldDetail);
                 }
 
@@ -141,32 +141,35 @@ public class ProductService {
             String receiverPhone,
             String receiverAddress) {
 
-        // Create order
-        Order order = new Order();
-        order.setUser(user);
-        order.setReceiverName(receiverName);
-        order.setReceiverPhone(receiverPhone);
-        order.setReceiverAddress(receiverAddress);
-        order = this.orderRepository.save(order);
-
-        // Create order detail
-
-        // Step 1: Get cart by user
+        //// Step 1: Get cart by user
         Cart cart = this.cartRepository.findByUser(user);
         if (cart != null) {
             List<CartDetail> cartDetails = cart.getCartDetails();
-
             if (cartDetails != null) {
+                // Create order
+                Order order = new Order();
+                order.setUser(user);
+                order.setReceiverName(receiverName);
+                order.setReceiverPhone(receiverPhone);
+                order.setReceiverAddress(receiverAddress);
+                order.setStatus("PENDING");
+
+                double sum = 0;
+                for (CartDetail cd : cartDetails) {
+                    sum += cd.getPrice() * cd.getQuantity();
+                }
+                order.setTotalPrice(sum);
+                order = this.orderRepository.save(order);
+
+                // Create order detail
                 for (CartDetail cd : cartDetails) {
                     OrderDetail orderDetail = new OrderDetail();
                     orderDetail.setOrder(order);
-                    orderDetail.setProduct(cd.getProduct());
                     orderDetail.setPrice(cd.getPrice());
+                    orderDetail.setProduct(cd.getProduct());
                     orderDetail.setQuantity(cd.getQuantity());
-
                     this.orderDetailRepository.save(orderDetail);
                 }
-
                 // Step 2: Delete cart detail and cart
                 for (CartDetail cd : cartDetails) {
                     this.cartDetailRepository.deleteById(cd.getId());
@@ -180,4 +183,30 @@ public class ProductService {
         }
 
     }
+
+    public List<Order> getAllOrders() {
+        return this.orderRepository.findAll();
+    }
+
+    public Optional<Order> getOrderById(long id) {
+        return this.orderRepository.findById(id);
+    }
+
+    public void handleSaveOrder(Order order) {
+        this.orderRepository.save(order);
+    }
+
+    public void deleteOrderById(long id) {
+        Order order = getOrderById(id).get();
+        List<OrderDetail> orderDetails = order.getOrderDetails();
+        for (OrderDetail od : orderDetails) {
+            this.orderDetailRepository.deleteById(od.getId());
+        }
+        this.orderRepository.deleteById(id);
+    }
+
+    public void handleSaveCartDetail(CartDetail cartDetail) {
+        this.cartDetailRepository.save(cartDetail);
+    }
+
 }

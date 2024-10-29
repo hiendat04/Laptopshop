@@ -75,7 +75,7 @@ public class ProductController {
     }
 
     @PostMapping("/admin/product/update/{id}")
-    public String postMethodName(
+    public String postUpdateProduct(
             @ModelAttribute("product") Product product,
             BindingResult updateProductBindingResult,
             @RequestParam("uploadFile") MultipartFile file,
