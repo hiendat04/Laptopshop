@@ -8,7 +8,7 @@ This project is an e-commerce website for selling laptops. It is built using the
 ## Tech Stack
 - **Backend**: Java Spring Framework (Spring Boot, Spring MVC, Spring Data JPA, Spring Security)
 - **Frontend**: HTML, CSS, Bootstrap for styling, JSP for rendering views
-- **Database**: MySQL with Hibernate for ORM
+- **Database**: MySQL with JPA for ORM
 - **Tools**: Maven for dependency management, Git for version control
 - **Others**: RESTful API development, JSP Tag Libraries
 
