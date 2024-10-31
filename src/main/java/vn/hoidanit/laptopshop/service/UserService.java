@@ -1,10 +1,11 @@
 package vn.hoidanit.laptopshop.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import vn.hoidanit.laptopshop.domain.Role;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import vn.hoidanit.laptopshop.domain.User;
@@ -37,8 +38,8 @@ public class UserService {
         return newUser;
     }
 
-    public List<User> getAllUsers() {
-        return this.userRepository.findAll();
+    public Page<User> getAllUsers(Pageable pageable) {
+        return this.userRepository.findAll(pageable);
     }
 
     public List<User> getAllUsersByEmail(String email) {
@@ -86,5 +87,6 @@ public class UserService {
     public long countOrders() {
         return this.orderRepository.count();
     }
+
 
 }

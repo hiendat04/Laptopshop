@@ -1,9 +1,12 @@
 package vn.hoidanit.laptopshop.controller.client;
 
 import java.util.List;
+import java.util.Optional;
 
 import vn.hoidanit.laptopshop.domain.User;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +19,10 @@ import vn.hoidanit.laptopshop.domain.dto.RegisterDTO;
 import vn.hoidanit.laptopshop.service.ProductService;
 import vn.hoidanit.laptopshop.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomePageController {
@@ -39,9 +42,10 @@ public class HomePageController {
 
     @GetMapping("/")
     public String getHomePage(Model model, HttpServletRequest request) {
-        List<Product> products = this.productService.getAllProducts();
-        model.addAttribute("products", products);
-        HttpSession session = request.getSession(false);
+        Pageable page = PageRequest.of(0, 10);
+        Page<Product> products = this.productService.getAllProducts(page);
+        List<Product> listProducts = products.getContent();
+        model.addAttribute("products", listProducts);
         return "client/homepage/show";
     }
 
@@ -61,9 +65,9 @@ public class HomePageController {
             return "client/auth/register";
         }
 
-        String hashPashword = this.passwordEncoder.encode(user.getPassword());
+        String hashPassword = this.passwordEncoder.encode(user.getPassword());
 
-        user.setPassword(hashPashword);
+        user.setPassword(hashPassword);
         user.setRole(this.userService.getRoleByName("USER"));
         this.userService.handleSaveUser(user);
         return "redirect:/login";
@@ -78,5 +82,6 @@ public class HomePageController {
     public String getDenyPage(Model model) {
         return "client/auth/deny";
     }
+
 
 }

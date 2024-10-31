@@ -127,27 +127,25 @@
         $('#videoModal').on('hide.bs.modal', function (e) {
             $("#video").attr('src', $videoSrc);
         })
+
+        const navElement = $("#navbarCollapse");
+        const currentURL = window.location.pathname;
+        navElement.find('a.nav-link').each(function(){
+            const link = $(this);
+            const href = link.attr('href');
+
+            if(href === currentURL){
+                link.addClass('active');
+            }
+            else{
+                link.removeClass('active');
+            }
+        });
     });
 
 
 
-    // Product Quantity
-    //     $('.quantity button').on('click', function () {
-    //         var button = $(this);
-    //         var oldValue = button.parent().parent().find('input').val();
-    //         if (button.hasClass('btn-plus')) {
-    //             var newVal = parseFloat(oldValue) + 1;
-    //         } else {
-    //             if (oldValue > 0) {
-    //                 var newVal = parseFloat(oldValue) - 1;
-    //             } else {
-    //                 newVal = 0;
-    //             }
-    //         }
-    //         button.parent().parent().find('input').val(newVal);
-    //     });
 
-    // })(jQuery);
 
     $('.quantity button').on('click', function () {
         let change = 0;
