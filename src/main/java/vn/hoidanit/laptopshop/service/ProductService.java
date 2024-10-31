@@ -2,7 +2,6 @@ package vn.hoidanit.laptopshop.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpSession;
@@ -15,13 +14,13 @@ import vn.hoidanit.laptopshop.domain.CartDetail;
 import vn.hoidanit.laptopshop.domain.Order;
 import vn.hoidanit.laptopshop.domain.OrderDetail;
 import vn.hoidanit.laptopshop.domain.Product;
-import vn.hoidanit.laptopshop.domain.Product_;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.repository.CartDetailRepository;
 import vn.hoidanit.laptopshop.repository.CartRepository;
 import vn.hoidanit.laptopshop.repository.OrderDetailRepository;
 import vn.hoidanit.laptopshop.repository.OrderRepository;
 import vn.hoidanit.laptopshop.repository.ProductRepository;
+import vn.hoidanit.laptopshop.service.specification.ProductSpecs;
 
 @Service
 public class ProductService {
@@ -51,12 +50,49 @@ public class ProductService {
         return this.productRepository.save(product);
     }
 
-    private Specification<Product> nameLike(String name) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(Product_.NAME), "%" + name + "%");
+    public Page<Product> getAllProducts(Pageable pageable) {
+        return this.productRepository.findAll(pageable);
     }
 
-    public Page<Product> getAllProducts(Pageable pageable, String name) {
-        return this.productRepository.findAll(this.nameLike(name), pageable);
+    // public Page<Product> getAllProductsWithSpec(Pageable pageable, String name) {
+    // return this.productRepository.findAll(ProductSpecs.nameLike(name), pageable);
+    // }
+
+    // case 1
+    // public Page<Product> getAllProductsWithSpec(Pageable pageable, double price)
+    // {
+    // return this.productRepository.findAll(ProductSpecs.minPrice(price),
+    // pageable);
+    // }
+
+    // case 2
+    // public Page<Product> getAllProductsWithSpec(Pageable pageable, double price)
+    // {
+    // return this.productRepository.findAll(ProductSpecs.maxPrice(price),
+    // pageable);
+    // }
+
+    // case 3 and 4
+    // public Page<Product> getAllProductsWithSpec(Pageable pageable, List<String>
+    // factories) {
+    // return
+    // this.productRepository.findAll(ProductSpecs.matchListFactory(factories),
+    // pageable);
+    // }
+
+    public Page<Product> getAllProductsWithSpec(Pageable pageable, String price) {
+
+        if (price.equals("10-toi-15-trieu")) {
+            double min = 10000000;
+            double max = 15000000;
+            return this.productRepository.findAll(ProductSpecs.matchPrice(min, max), pageable);
+        } else if (price.equals("15-toi-30-trieu")) {
+            double min = 15000000;
+            double max = 30000000;
+            return this.productRepository.findAll(ProductSpecs.matchPrice(min, max), pageable);
+        } else {
+            return this.productRepository.findAll(pageable);
+        }
     }
 
     public Optional<Product> getProductById(long id) {
