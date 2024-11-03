@@ -63,7 +63,7 @@
                             <div class="row g-4 fruite">
                                 <div class="col-12 col-md-4">
                                     <div class="row g-4">
-                                        <div class="col-12">
+                                        <div class="col-12" id="factoryFilter">
                                             <div class="mb-2"><b>Hãng sản xuất</b></div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="checkbox" id="factory-1"
@@ -99,7 +99,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12" id="targetFilter">
                                             <div class="mb-2"><b>Mục đích sử dụng</b></div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="checkbox" id="target-1"
@@ -132,7 +132,7 @@
 
 
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12" id="priceFilter">
                                             <div class="mb-2"><b>Mức giá</b></div>
 
                                             <div class="form-check form-check-inline">
@@ -157,7 +157,7 @@
 
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="checkbox" id="price-5"
-                                                    value="tren-20-triệu">
+                                                    value="tren-20-trieu">
                                                 <label class="form-check-label" for="price-5">Trên 20 triệu</label>
                                             </div>
                                         </div>
@@ -177,13 +177,13 @@
                                             </div>
 
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" id="sort-3"
+                                                <input class="form-check-input" type="radio" id="sort-3" checked
                                                     value="gia-nothing" name="radio-sort">
                                                 <label class="form-check-label" for="sort-3">Không sắp xếp</label>
                                             </div>
 
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12" id="buttonFilter">
                                             <button
                                                 class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4">
                                                 Lọc Sản Phẩm
@@ -193,87 +193,95 @@
                                 </div>
                                 <div class="col-12 col-md-8 text-center">
                                     <div class="row g-4">
-                                        <c:forEach var="product" items="${products}">
-                                            <div class="col-md-6 col-lg-4">
-                                                <div class="rounded position-relative fruite-item">
-                                                    <div class="fruite-img">
-                                                        <img src="images/product/${product.image}"
-                                                            class="img-fluid w-100 rounded-top" alt="">
-                                                    </div>
-                                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                        style="top: 10px; left: 10px;">Laptop</div>
-                                                    <div
-                                                        class="p-4 border border-secondary border-top-0 rounded-bottom ">
-                                                        <h4 style="font-size: 15px;">
-                                                            <a href="/product/${product.id}">
-                                                                ${product.name}
-                                                            </a>
-
-                                                        </h4>
-                                                        <p style="font-size: 13px;">
-                                                            ${product.shortDesc}</p>
+                                        <c:if test="${totalPages == 0}">
+                                            <div>Không tìm thấy sản phẩm</div>
+                                        </c:if>
+                                        <c:if test="${totalPages > 0}">
+                                            <c:forEach var="product" items="${products}">
+                                                <div class="col-md-6 col-lg-4">
+                                                    <div class="rounded position-relative fruite-item">
+                                                        <div class="fruite-img">
+                                                            <img src="images/product/${product.image}"
+                                                                class="img-fluid w-100 rounded-top" alt="">
+                                                        </div>
+                                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                                            style="top: 10px; left: 10px;">Laptop</div>
                                                         <div
-                                                            class="d-flex justify-content-center flex-lg-wrap flex-column">
-                                                            <p class="text-dark fs-5 fw-bold mb-0">
-                                                                <fmt:formatNumber value="${product.price}" />đ
-                                                            </p>
-                                                            <a href="#"
-                                                                class="btn border border-secondary rounded-pill px-3 text-primary mt-1"><i
-                                                                    class="fa fa-shopping-bag me-2 text-primary"></i>
-                                                                Add to
-                                                                cart</a>
+                                                            class="p-4 border border-secondary border-top-0 rounded-bottom ">
+                                                            <h4 style="font-size: 15px;">
+                                                                <a href="/product/${product.id}">
+                                                                    ${product.name}
+                                                                </a>
+
+                                                            </h4>
+                                                            <p style="font-size: 13px;">
+                                                                ${product.shortDesc}</p>
+                                                            <div
+                                                                class="d-flex justify-content-center flex-lg-wrap flex-column">
+                                                                <p class="text-dark fs-5 fw-bold mb-0">
+                                                                    <fmt:formatNumber value="${product.price}" />đ
+                                                                </p>
+                                                                <a href="#"
+                                                                    class="btn border border-secondary rounded-pill px-3 text-primary mt-1"><i
+                                                                        class="fa fa-shopping-bag me-2 text-primary"></i>
+                                                                    Add to
+                                                                    cart</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </c:forEach>
-                                        <div class="pagination d-flex justify-content-center mt-5">
-                                            <li class="page-item">
-                                                <a class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}"
-                                                    href="/products?page=${currentPage - 1}" aria-label="Previous">
-                                                    <span aria-hidden="true">&laquo;</span>
-                                                </a>
-                                            </li>
-                                            <c:forEach begin="0" end="${totalPages - 1}" varStatus="loop">
+                                            </c:forEach>
+
+                                            <div class="pagination d-flex justify-content-center mt-5">
                                                 <li class="page-item">
-                                                    <a class="${(loop.index + 1) eq currentPage ? 'active page-link' : 'page-link'}"
-                                                        href="/products?page=${loop.index + 1}">
-                                                        ${loop.index + 1}
+                                                    <a class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}"
+                                                        href="/products?page=${currentPage - 1}${queryString}"
+                                                        aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
                                                     </a>
                                                 </li>
-                                            </c:forEach>
-                                            <li class="page-item">
-                                                <a class="${totalPages eq currentPage ? 'disabled page-link' : 'page-link'}"
-                                                    href="/products?page=${currentPage + 1}" aria-label="Next">
-                                                    <span aria-hidden="true">&raquo;</span>
-                                                </a>
-                                            </li>
-                                        </div>
+                                                <c:forEach begin="0" end="${totalPages - 1}" varStatus="loop">
+                                                    <li class="page-item">
+                                                        <a class="${(loop.index + 1) eq currentPage ? 'active page-link' : 'page-link'}"
+                                                            href="/products?page=${loop.index + 1}${queryString}">
+                                                            ${loop.index + 1}
+                                                        </a>
+                                                    </li>
+                                                </c:forEach>
+                                                <li class="page-item">
+                                                    <a class="${totalPages eq currentPage ? 'disabled page-link' : 'page-link'}"
+                                                        href="/products?page=${currentPage + 1}${queryString}"
+                                                        aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Products End-->
+                </div>
+                <!-- Products End-->
 
 
-                    <jsp:include page="../layout/footer.jsp" />
+                <jsp:include page="../layout/footer.jsp" />
 
-                    <!-- Back to Top -->
-                    <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
-                            class="fa fa-arrow-up"></i></a>
+                <!-- Back to Top -->
+                <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
+                        class="fa fa-arrow-up"></i></a>
 
 
-                    <!-- JavaScript Libraries -->
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-                    <script src="/client/lib/easing/easing.min.js"></script>
-                    <script src="/client/lib/waypoints/waypoints.min.js"></script>
-                    <script src="/client/lib/lightbox/js/lightbox.min.js"></script>
-                    <script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
+                <!-- JavaScript Libraries -->
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+                <script src="/client/lib/easing/easing.min.js"></script>
+                <script src="/client/lib/waypoints/waypoints.min.js"></script>
+                <script src="/client/lib/lightbox/js/lightbox.min.js"></script>
+                <script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
 
-                    <!-- Template Javascript -->
-                    <script src="/client/js/main.js"></script>
+                <!-- Template Javascript -->
+                <script src="/client/js/main.js"></script>
             </body>
 
             </html>
