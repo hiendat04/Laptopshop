@@ -1,7 +1,5 @@
 # E-Commerce Website - LAPTOPSHOP
 
-### 🚧 IN PROGRESS
-
 ## Overview
 This project is an e-commerce website for selling laptops. It is built using the Java Spring Framework to demonstrate my understanding of building web applications with backend functionality. And this project is for educational purpose only !
 
@@ -19,9 +17,6 @@ This project is an e-commerce website for selling laptops. It is built using the
 - Order history for customers.
 - Admin panel for managing products, users and orders.
 - Dashboard interface provides statistics on the number of products available, the number of orders sold, and the number of people currently on the website.
-
-## Status
-**Note**: This project is currently in development, and additional features like payment integration and order tracking will be added in the future.
 
 ## Contact
 Feel free to reach out for any suggestions or collaboration opportunities!
