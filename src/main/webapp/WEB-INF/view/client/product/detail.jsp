@@ -33,23 +33,19 @@
 
                 <!-- Template Stylesheet -->
                 <link href="/client/css/style.css" rel="stylesheet">
+
+                <meta name="_csrf" content="${_csrf.token}" />
+                <!-- default header name is X-CSRF-TOKEN -->
+                <meta name="_csrf_header" content="${_csrf.headerName}" />
+
+
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css"
+                    rel="stylesheet">
             </head>
 
             <body>
 
                 <jsp:include page="../layout/header.jsp" />
-
-                <!-- Single Page Header start -->
-                <!-- <div class="container-fluid page-header py-5">
-                    <h1 class="text-center text-white display-6">Shop Detail</h1>
-                    <ol class="breadcrumb justify-content-center mb-0">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item active text-white">Shop Detail</li>
-                    </ol>
-                </div> -->
-                <!-- Single Page Header End -->
-
 
                 <!-- Single Product Start -->
                 <div class="container-fluid py-5 mt-5">
@@ -104,18 +100,18 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <form action="/update-quantity-from-detail" method="post"
-                                            modelAttribute="product">
-                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                            <input class="form-control d-none" type="text" value="${product.id}"
-                                                name="id" />
-                                            <input class="form-control d-none" type="text" id="cartDetails0.quantity"
-                                                name="quantity" />
-                                            <button
-                                                class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4">Thêm
-                                                vào giỏ hàng
-                                            </button>
-                                        </form>
+                                        <!-- <form action="/update-quantity-from-detail" method="post"
+                                            modelAttribute="product"> -->
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                        <input class="form-control d-none" type="text" value="${product.id}"
+                                            name="id" />
+                                        <input class="form-control d-none" type="text" id="cartDetails0.quantity"
+                                            name="quantity" value="1" />
+                                        <button
+                                            class="btnAddToCartDetail btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4">Thêm
+                                            vào giỏ hàng
+                                        </button>
+                                        <!-- </form> -->
                                     </div>
                                     <div class="col-lg-12">
                                         <nav>
@@ -546,6 +542,8 @@
 
                 <!-- Template Javascript -->
                 <script src="/client/js/main.js"></script>
+                <script
+                    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
             </body>
 
             </html>

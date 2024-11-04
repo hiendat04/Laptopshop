@@ -187,22 +187,22 @@ public class ItemController {
         } catch (Exception e) {
         }
 
-        Pageable pageable = PageRequest.of(page - 1, 3);
+        Pageable pageable = PageRequest.of(page - 1, 10);
         if (productCriteriaDTO.getSort() != null && productCriteriaDTO.getSort().isPresent()) {
             String sort = productCriteriaDTO.getSort().get();
             if (sort.equals("gia-tang-dan")) {
-                pageable = PageRequest.of(page - 1, 3, Sort.by(Product_.PRICE).ascending());
+                pageable = PageRequest.of(page - 1, 10, Sort.by(Product_.PRICE).ascending());
             } else {
-                pageable = PageRequest.of(page - 1, 3, Sort.by(Product_.PRICE).descending());
+                pageable = PageRequest.of(page - 1, 10, Sort.by(Product_.PRICE).descending());
 
             }
         }
         Page<Product> products = this.productService.getAllProductsWithSpec(pageable, productCriteriaDTO);
         List<Product> listProducts = products.getContent().size() > 0 ? products.getContent()
                 : new ArrayList<Product>();
-        
+
         String qs = request.getQueryString();
-        if (qs != null && !qs.isBlank()){
+        if (qs != null && !qs.isBlank()) {
             qs = qs.replace("page=" + page, "");
         }
         model.addAttribute("products", listProducts);
